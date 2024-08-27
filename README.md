@@ -4,9 +4,8 @@ This app gives the sentiment of your comments from a scale -1 to 1. -1 being ver
 To use run:
 `docker run -i sahandp2012p/youtube-comments-analysis`
 You can also run using the app zip file
-Unzip it and then run the app binary.
+Unzip it and then run the app binary with terminal.
 To run:
 ```
-chmod +x ./app
 ./app
 ```
