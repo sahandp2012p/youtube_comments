@@ -19,7 +19,7 @@ def get_comments(id):
         request = youtube.commentThreads().list(
             part="snippet",
             videoId=id,
-            maxResults=50,  # Adjust as needed (Youtube's maximum is 100)
+            maxResults=100,
             textFormat='plainText',
             pageToken=next_page_token
         )

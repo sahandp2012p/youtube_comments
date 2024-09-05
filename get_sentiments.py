@@ -1,13 +1,17 @@
 from nltk.sentiment import SentimentIntensityAnalyzer
-from get_comments import get_comments
 import nltk
-nltk.download('vader_lexicon')
+from get_comments import get_comments
+from preprocess import pipeline
 
 def get_sentiment(id):
     sentiment_object = SentimentIntensityAnalyzer()
-    comments = get_comments(id)
+    try:
+        comments = get_comments(id)
+    except:
+        return False
     polarity = []
     for comment in comments:
-        sentiment_dict = sentiment_object.polarity_scores(comment)
+        sentiment_dict = sentiment_object.polarity_scores(pipeline(comment))
         polarity.append(sentiment_dict['compound'])
     return sum(polarity)/len(polarity)
+
