@@ -13,5 +13,5 @@ def get_sentiment(id):
     for comment in comments:
         sentiment_dict = sentiment_object.polarity_scores(pipeline(comment))
         polarity.append(sentiment_dict['compound'])
-    return sum(polarity)/len(polarity)
+    return sum(polarity)/len(polarity), len(polarity)
 

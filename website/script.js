@@ -11,7 +11,7 @@ function formSubmit (event) {
   	if (data['detail']) {
   		document.querySelector('p').innerText = data['detail']
   	} else {
-  		document.querySelector('p').innerText =  data['score']
+  		document.querySelector('p').innerText =  `${data['score']}/10 ${data['emoji']} Out of ${data['comments']} comments`
   	}
   })
 }
