@@ -9,3 +9,6 @@ To run:
 ```
 ./app
 ```
+
+
+# NOTICE Docker and Binary are deprecated use website instead
