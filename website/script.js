@@ -1,8 +1,6 @@
 const form = document.getElementById("score")
 
-form.addEventListener("submit", formSubmit, false)
-
-function formSubmit (event) {
+const formSubmit = (event) =>{
 	event.preventDefault()
 	const formData = new FormData(event.target)
 	fetch(`http://localhost:8000/${formData.get("id")}`)
@@ -15,3 +13,5 @@ function formSubmit (event) {
   	}
   })
 }
+
+form.addEventListener("submit", formSubmit, false)
