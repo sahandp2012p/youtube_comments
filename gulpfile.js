@@ -38,7 +38,8 @@ function browsersyncReload(cb){
 
 // Watch Task
 function watchTask(){
-  watch('*.html', browsersyncReload);
+  watch('*', browsersyncReload);
+  // watch('*.html', browsersyncReload);
   watch(['dev/sass/**/*.sass', 'dev/js/**/*.js'], series(sassTask, jsTask, browsersyncReload));
 }
 
