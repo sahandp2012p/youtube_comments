@@ -1,13 +1,11 @@
 import googleapiclient.discovery
 import os
-from dotenv import load_dotenv
 
 
 def get_comments(id):
-    load_dotenv()
     api_service_name = "youtube"
     api_version = "v3"
-    DEVELOPER_KEY = os.environ['DEVELOPER_KEY']
+    DEVELOPER_KEY = 'AIzaSyAQrfFmXUzz1eu5zTsNwXIn6iTLQ4ubhnU'
 
     youtube = googleapiclient.discovery.build(
         api_service_name, api_version, developerKey=DEVELOPER_KEY

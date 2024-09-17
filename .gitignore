@@ -5,3 +5,4 @@ build
 app.spec
 node_modules
 package-lock.json
+.env
