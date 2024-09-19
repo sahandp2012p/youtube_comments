@@ -6,3 +6,5 @@ app.spec
 node_modules
 package-lock.json
 .env
+*/*/__pycache__
+comments.db

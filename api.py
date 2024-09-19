@@ -8,6 +8,10 @@ from passlib.context import CryptContext
 from dotenv import load_dotenv
 import os
 
+from sqlalchemy import create_engine, Column, Integer, String, Boolean
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker, Session
+
 from get_sentiments import get_sentiment
 from get_emojis import get_emojis
 
@@ -17,17 +21,32 @@ SECRET_KEY = os.environ['SECRET_KEY']
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRES_MINUTES = 30
 
-db = {
-    "sahand": {
-        "username": "sahand",
-        "full_name": "Sahand Pourjavad",
-        "email": "sahand@gmail.com",
-        "hashed_password": "$2b$12$v4pNLyy/c6mcp4Yrfg5cNeiDdKVHQGeP2GXewpgZ7y3JWSa7uiVsW",
-        "disabled": False
-    }
-}
+# Database setup
+SQLALCHEMY_DATABASE_URL = "sqlite:///comments.db"  # Adjust the path as needed
 
+engine = create_engine(
+    SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
+)
 
+SessionLocal = sessionmaker(bind=engine, autocommit=False, autoflush=False)
+
+Base = declarative_base()
+
+# Database model
+class UserDB(Base):
+    __tablename__ = "users"
+
+    id = Column(Integer, primary_key=True, index=True)
+    username = Column(String, unique=True, index=True)
+    hashed_password = Column(String)
+    email = Column(String, nullable=True)
+    full_name = Column(String, nullable=True)
+    disabled = Column(Boolean, default=False)
+
+# Create the database tables
+Base.metadata.create_all(bind=engine)
+
+# Pydantic models
 class Token(BaseModel):
     access_token: str
     token_type: str
@@ -35,21 +54,25 @@ class Token(BaseModel):
 class TokenData(BaseModel):
     username: str or None = None
 
-class User(BaseModel):
+class UserBase(BaseModel):
     username: str
     email: str or None = None
     full_name: str or None = None
     disabled: bool or None = None
 
-class UserInDB(User):
-    hashed_password: str
+class UserCreate(UserBase):
+    password: str
+
+class User(UserBase):
+    class Config:
+        orm_mode = True
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 app = FastAPI()
 
-origins = ['null']  # NOT recommended - see details below
+origins = ['null']  # NOT recommended - adjust as needed
 
 app.add_middleware(
     CORSMiddleware,
@@ -65,12 +88,18 @@ def verify_password(plain_password, hashed_password):
 def get_password_hash(password):
     return pwd_context.hash(password)
 
-def get_user(db, username: str):
-    if username in db:
-        user_data = db[username]
-        return UserInDB(**user_data)
+# Dependency to get DB session
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
 
-def authenticate_user(db, username: str, password: str):
+def get_user(db: Session, username: str):
+    return db.query(UserDB).filter(UserDB.username == username).first()
+
+def authenticate_user(db: Session, username: str, password: str):
     user = get_user(db, username)
     if not user:
         return False
@@ -81,63 +110,117 @@ def authenticate_user(db, username: str, password: str):
 
 def create_access_token(data: dict, expires_delta: timedelta or None = None):
     to_encode = data.copy()
-    if expires_delta:
-        expire = datetime.utcnow() + expires_delta
-    else:
-        expire = datetime.utcnow() + timedelta(minutes=15)
-
+    expire = datetime.utcnow() + (expires_delta or timedelta(minutes=15))
     to_encode.update({"exp": expire})
-    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
-    return encoded_jwt
+    return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
 
-async def get_current_user(token: str = Depends(oauth2_scheme)):
-    credential_exception = HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Could not validate credentials", headers={"WWW-Authenticate": "Bearer"})
+async def get_current_user(
+    db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)
+):
+    credentials_exception = HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Could not validate credentials",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
 
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         username: str = payload.get("sub")
         if username is None:
-            raise credential_exception
+            raise credentials_exception
 
         token_data = TokenData(username=username)
     except JWTError:
-        raise credential_exception
+        raise credentials_exception
     
     user = get_user(db, username=token_data.username)
     if user is None:
-        raise credential_exception
+        raise credentials_exception
 
     return user
 
-async def get_current_active_user(current_user: UserInDB = Depends(get_current_user)):
+async def get_current_active_user(current_user: UserDB = Depends(get_current_user)):
     if current_user.disabled:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Inactive user")
-
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail="Inactive user"
+        )
     return current_user
 
+@app.post("/users/", response_model=User)
+def create_user(user: UserCreate, db: Session = Depends(get_db)):
+    db_user = get_user(db, username=user.username)
+    if db_user:
+        raise HTTPException(status_code=400, detail="Username already registered")
+    hashed_password = get_password_hash(user.password)
+    db_user = UserDB(
+        username=user.username,
+        hashed_password=hashed_password,
+        email=user.email,
+        full_name=user.full_name,
+    )
+    db.add(db_user)
+    db.commit()
+    db.refresh(db_user)
+    return db_user
+
 @app.post("/token", response_model=Token)
-async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends()):
+async def login_for_access_token(
+    db: Session = Depends(get_db), form_data: OAuth2PasswordRequestForm = Depends()
+):
     user = authenticate_user(db, form_data.username, form_data.password)
     if not user:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Incorrect username or passsword", headers={"WWW-Authenticate": "Bearer"})
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect username or password",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
     
     access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRES_MINUTES)
-    access_token = create_access_token(data={"sub": user.username}, expires_delta=access_token_expires)
+    access_token = create_access_token(
+        data={"sub": user.username}, expires_delta=access_token_expires
+    )
     return {"access_token": access_token, "token_type": "bearer"}
 
 @app.get("/users/me", response_model=User)
-async def read_user_me(current_user: User = Depends(get_current_active_user)):
+async def read_user_me(current_user: UserDB = Depends(get_current_active_user)):
     return current_user
 
-@app.get("/users/me/items",)
-async def read_own_items(current_user: User = Depends(get_current_active_user)):
-    return [{"item_id": 1, "owner": current_user}]
+@app.get("/users/me/items")
+async def read_own_items(current_user: UserDB = Depends(get_current_active_user)):
+    return [{"item_id": 1, "owner": current_user.username}]
 
 @app.get("/{id}")
-async def root(id: str):
-	sentiment = get_sentiment(id)
+async def root(id: str, current_user: UserDB = Depends(get_current_active_user)):
+    sentiment = get_sentiment(id)
+    if sentiment:
+        score = round((((sentiment[0]--1) * (10 - 1)) / (1--1)) + 1)
+        return {
+            "score": score,
+            "comments": sentiment[1],
+            "emoji": get_emojis(score),
+        }
+    else:
+        raise HTTPException(
+            status_code=status.HTTP_206_PARTIAL_CONTENT,
+            detail="The video's comments are disabled or invalid video ID",
+        )
 
-	if sentiment:
-		return {"score": round((((sentiment[0]--1)*(10-1))/(1--1))+1), "comments": sentiment[1], "emoji": get_emojis(round((((sentiment[0]--1)*(10-1))/(1--1))+1))}
-	else:
-		raise HTTPException(status_code=status.HTTP_206_PARTIAL_CONTENT, detail="The video's comments are disabled or Invalid video id")
+@app.post("/signup")
+def signup(user: UserCreate, db: Session = Depends(get_db)):
+    """
+    User signup endpoint.
+    """
+    db_user = get_user(db, username=user.username)
+    if db_user:
+        raise HTTPException(status_code=400, detail="Username already registered")
+    hashed_password = get_password_hash(user.password)
+    db_user = UserDB(
+        username=user.username,
+        hashed_password=hashed_password,
+        email=user.email,
+        full_name=user.full_name,
+    )
+    db.add(db_user)
+    db.commit()
+    db.refresh(db_user)
+    return db_user
