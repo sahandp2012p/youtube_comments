@@ -16,6 +16,6 @@
     "gulp-postcss": "^10.0.0",
     "gulp-sass": "^5.1.0",
     "gulp-terser": "^2.1.0",
-    "sass": "^1.78.0"
+    "sass": "^1.79.1"
   }
 }
