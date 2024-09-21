@@ -67,12 +67,15 @@ class User(UserBase):
     class Config:
         orm_mode = True
 
+class Video(BaseModel):
+    id: str
+
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 app = FastAPI()
 
-origins = ['null']  # NOT recommended - adjust as needed
+origins = ['http://localhost:3000']  
 
 app.add_middleware(
     CORSMiddleware,
@@ -181,17 +184,9 @@ async def login_for_access_token(
     )
     return {"access_token": access_token, "token_type": "bearer"}
 
-@app.get("/users/me", response_model=User)
-async def read_user_me(current_user: UserDB = Depends(get_current_active_user)):
-    return current_user
-
-@app.get("/users/me/items")
-async def read_own_items(current_user: UserDB = Depends(get_current_active_user)):
-    return [{"item_id": 1, "owner": current_user.username}]
-
-@app.get("/{id}")
-async def root(id: str, current_user: UserDB = Depends(get_current_active_user)):
-    sentiment = get_sentiment(id)
+@app.post("/")
+async def root(video: Video):
+    sentiment = get_sentiment(video.id)
     if sentiment:
         score = round((((sentiment[0]--1) * (10 - 1)) / (1--1)) + 1)
         return {
