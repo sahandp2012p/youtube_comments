@@ -1,4 +1,5 @@
-// const axios = require("axios")
+import '../sass/style.sass'
+import axios from "axios"
 
 const form = document.getElementById("score")
 
@@ -23,7 +24,12 @@ const formSubmit = (event) =>{
 		id: formData.get('id')
 	}).then(response => {
 		if (response.status == 200) {
-			console.log(response.data)
+			data = response.data
+			document.querySelector('p').innerText = `${data.score}/10 ${data.emoji} Out of ${data.comments} comments`
+		} else if (response.status == 206) {
+			document.querySelector('p').innerText = response.data.detail
+		} else {
+			document.querySelector('p') = innerText = 'Unauthorized'
 		}
 	})
 }
