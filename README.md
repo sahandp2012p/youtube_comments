@@ -12,3 +12,19 @@ To run:
 
 
 # NOTICE Docker and Binary are deprecated use website instead
+
+Please set your own developer key for google cloud in .env
+and created ssl key with this command and set it .env as SECRET_KEY
+```
+openssl rand -hex 32
+```
+
+To use website run:
+```
+pip install -r requirements.txt
+```
+then run these two commands as different processes:
+```
+uvicorn api:app
+npm run dev
+```
