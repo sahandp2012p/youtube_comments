@@ -10,6 +10,7 @@ const formSubmit = (event) =>{
 		id: formData.get('id')
 	}).then(response => {
 		if (response.status == 200) {
+			console.log(response.status)
 			data = response.data
 			document.querySelector('p').innerText = `${data.score}/10 ${data.emoji} Out of ${data.comments} comments`
 		} else if (response.status == 206) {
