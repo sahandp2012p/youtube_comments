@@ -9,35 +9,39 @@ An application for YouTubers to analyze their comments given a score from 1 to 1
 
 To run this project, you will need to add the following environment variables to your .env file
 
-`SECRET_KEY` Which is the key for creating passwords in the api
+`SECRET_KEY`: Which is the key for creating passwords in the api.
 
-To create run: `$ openssl rand -hex 32`
+To create run: 
+```bash
+$ openssl rand -hex 32
+```
 
-`DEVELOPER_KEY` Which is the api key for YouTube api v3: [Get from this link](https://developers.google.com/youtube/v3)
+`DEVELOPER_KEY`: Which is the api key for YouTube api v3: [Get from this link](https://developers.google.com/youtube/v3)
 
 
 ## Run Locally
 
 First you will have to clone this repo:
 ```bash
-git clone https://github.com/sahandp2012p/youtube_comments.git
+$ git clone https://github.com/sahandp2012p/youtube_comments.git
 ```
 
-Then, You will first have to install node.js using [this website](https://nodejs.org/en).
+Then, You will first have to [install node.js](https://nodejs.org/en).
 
-And then install the latest python version using [this website](https://www.python.org/).
+And then [install the latest python version](https://www.python.org/).
 
 Then you will have to run these commands to install the dependencies:
 
 ```bash
-  npm install
-  pip install -r requirements.txt
+$ npm install
+$ pip install -r requirements.txt
 ```
 And then you will need two run these two commands as different processes:
 ```bash
-uvicorn api:app
-npm run dev
+$ uvicorn api:app
+$ npm run dev
 ```
+
 ## FAQ
 
 #### Is this app free?
