@@ -36,11 +36,12 @@ Then you will have to run these commands to install the dependencies:
 $ bun install
 $ pip install -r requirements.txt
 ```
-And then you will need two run these two commands as different processes:
+And then you will have to run the python server using this command:
 ```bash
 $ uvicorn api:app
-$ bun dev
 ```
+
+The open the index.html file in the dist folder in your browser
 
 ## FAQ
 
