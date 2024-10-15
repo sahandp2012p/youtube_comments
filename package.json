@@ -1,0 +1,26 @@
+{
+  "name": "youtube_comments",
+  "version": "1.0.0",
+  "description": "This app gives the sentiment of your comments from a scale -1 to 1. -1 being very bad 1 being very good.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "vite --host",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.7.7",
+    "browser-sync": "^3.0.2",
+    "cssnano": "^7.0.6",
+    "gulp": "^5.0.0",
+    "gulp-postcss": "^10.0.0",
+    "gulp-sass": "^5.1.0",
+    "gulp-terser": "^2.1.0",
+    "sass": "^1.79.1",
+    "vite": "^5.4.7"
+  }
+}
