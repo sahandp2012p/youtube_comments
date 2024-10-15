@@ -22,7 +22,9 @@ export default defineConfig({
       input: {
         main: path.resolve(__dirname, 'index.html'),
       }
-    }
+    },
+    minify: true,
+    cssMinify: true
   },
   server: {
     open: true, // Automatically open the browser
