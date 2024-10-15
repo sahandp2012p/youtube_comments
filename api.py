@@ -14,7 +14,9 @@ from sqlalchemy.orm import sessionmaker, Session
 
 from get_sentiments import get_sentiment
 from get_emojis import get_emojis
+from downloads import download
 
+download()
 load_dotenv()
 
 SECRET_KEY = os.environ['SECRET_KEY']
@@ -185,7 +187,7 @@ async def login_for_access_token(
     return {"access_token": access_token, "token_type": "bearer"}
 
 @app.post("/")
-async def root(video: Video):
+async def root(video: Video):    
     sentiment = get_sentiment(video.id)
     if sentiment:
         score = round((((sentiment[0]--1) * (10 - 1)) / (1--1)) + 1)
