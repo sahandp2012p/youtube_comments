@@ -1,31 +1,52 @@
-# Youtube comments sentiment analysis
-This app gives the sentiment of your comments from a scale 1 to 10.
 
-To use run:
-`docker run -i sahandp2012p/youtube-comments-analysis`
-You can also run using the app zip file
-Unzip it and then run the app binary with terminal.
-To run:
-```
-./app
-```
+# Youtube Comments
+
+An application for YouTubers to analyze their comments given a score from 1 to 10.
 
 
-# NOTICE Docker and Binary are deprecated use website instead
 
-Please set your own developer key for google cloud in .env
-and created ssl key with this command and set it .env as SECRET_KEY
+## Environment Variables
+
+To run this project, you will need to add the following environment variables to your .env file
+
+`SECRET_KEY` Which is the key for creating passwords in the api
+
+To create run: `$ openssl rand -hex 32`
+
+`DEVELOPER_KEY` Which is the api key for YouTube api v3: [Get from this link](https://developers.google.com/youtube/v3)
+
+
+## Run Locally
+
+First you will have to clone this repo:
 ```bash
-openssl rand -hex 32
+git clone https://github.com/sahandp2012p/youtube_comments.git
 ```
 
-To use website run:
+Then, You will first have to install node.js using [this website](https://nodejs.org/en).
+
+And then install the latest python version using [this website](https://www.python.org/).
+
+Then you will have to run these commands to install the dependencies:
+
 ```bash
-npm i
-pip install -r requirements.txt
+  npm install
+  pip install -r requirements.txt
 ```
-then run these two commands as different processes:
+And then you will need two run these two commands as different processes:
 ```bash
 uvicorn api:app
 npm run dev
 ```
+## FAQ
+
+#### Is this app free?
+
+Yes, since this app is completely open-source this app is completely free to use
+
+#### Will I have link my youtube account to this app?
+
+No, you just can enter the video id in the website.
+
+# Acnowledgements
+Special thanks to [@MPBDev](https://github.com/MPBCoder) for the Readme
