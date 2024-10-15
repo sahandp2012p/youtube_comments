@@ -15,7 +15,7 @@ const formSubmit = (event) =>{
 		} else if (response.status == 206) {
 			document.querySelector('p').innerText = response.data.detail
 		} else {
-			document.querySelector('p') = innerText = 'Unauthorized'
+			document.querySelector('p').innerText = 'Unauthorized'
 		}
 	})
 }
