@@ -26,20 +26,20 @@ First you will have to clone this repo:
 $ git clone https://github.com/sahandp2012p/youtube_comments.git
 ```
 
-Then, You will first have to [install node.js](https://nodejs.org/en).
+Then, You will first have to [install bun](https://bun.sh/).
 
 And then [install the latest python version](https://www.python.org/).
 
 Then you will have to run these commands to install the dependencies:
 
 ```bash
-$ npm install
+$ bun install
 $ pip install -r requirements.txt
 ```
 And then you will need two run these two commands as different processes:
 ```bash
 $ uvicorn api:app
-$ npm run dev
+$ bun dev
 ```
 
 ## FAQ
