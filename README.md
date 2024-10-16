@@ -41,8 +41,10 @@ And then you will have to run the python server using this command:
 $ uvicorn api:app
 ```
 
-The open the index.html file in the dist folder in your browser
-
+Then run this command to open the sever that uses minified code
+```bash
+$ bun preview
+```
 ## FAQ
 
 #### Is this app free?
