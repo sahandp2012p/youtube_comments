@@ -77,7 +77,7 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 app = FastAPI()
 
-origins = ['http://localhost:5173']  
+origins = ['http://localhost:5173', 'http://localhost:4173']  
 
 app.add_middleware(
     CORSMiddleware,

@@ -7,7 +7,7 @@ const formSubmit = (event) =>{
 	event.preventDefault()
 	const formData = new FormData(event.target)
 	axios.post('http://localhost:8000', {
-		id: formData.get('id')
+		'id': formData.get('id')
 	}).then(response => {
 		if (response.status == 200) {
       let data = response.data

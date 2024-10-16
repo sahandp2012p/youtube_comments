@@ -41,7 +41,7 @@ And then you will have to run the python server using this command:
 $ uvicorn api:app
 ```
 
-Then run this command to open the sever that uses minified code
+Then run this command to open the server that uses minified code
 ```bash
 $ bun preview
 ```
