@@ -12,9 +12,9 @@ from sqlalchemy import create_engine, Column, Integer, String, Boolean
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, Session
 
-from get_sentiments import get_sentiment
-from get_emojis import get_emojis
-from downloads import download
+from backend.get_sentiments import get_sentiment
+from backend.get_emojis import get_emojis
+from backend.downloads import download
 
 download()
 load_dotenv()

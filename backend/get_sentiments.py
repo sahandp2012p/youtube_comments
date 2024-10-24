@@ -1,7 +1,7 @@
 from nltk.sentiment import SentimentIntensityAnalyzer
 import nltk
-from get_comments import get_comments
-from preprocess import pipeline
+from backend.get_comments import get_comments
+from backend.preprocess import pipeline
 
 def get_sentiment(id):
     sentiment_object = SentimentIntensityAnalyzer()

@@ -13,8 +13,9 @@ export default defineConfig({
     sourcemap: true,  // Enable sourcemaps for both JS and CSS
     rollupOptions: {
       input: {
-        main: path.resolve(__dirname, 'index.html'),
+        main: path.resolve('src', 'index.html'),
       },
+      // output
     },
     minify: true,
     cssMinify: true

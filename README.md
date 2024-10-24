@@ -38,13 +38,12 @@ $ pip install -r requirements.txt
 ```
 And then you will have to run the python server using this command:
 ```bash
-$ uvicorn api:app
+$ uvicorn backend.api:app
 ```
 
 Then run these commands to buld the code and open the server that uses minified code
 ```bash
-$ bun run build
-$ bun run preview
+$ bun start
 ```
 ## FAQ
 
