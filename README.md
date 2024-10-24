@@ -32,6 +32,8 @@ Then you will have to run these commands to install the dependencies:
 
 ```bash
 $ bun install
+$ python -m venv python_env
+$ source ./python_env/bin/activate
 $ pip install -r requirements.txt
 ```
 
