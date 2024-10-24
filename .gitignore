@@ -1,5 +1,5 @@
 .vscode
-bun.lockdb
+bun.lockb
 __pycache__
 python_env
 build

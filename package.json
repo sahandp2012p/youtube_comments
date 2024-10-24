@@ -8,7 +8,9 @@
     "dev": "vite --host",
     "build": "vite build",
     "preview": "vite preview",
-    "start": "vite build src && mv src/dist . && vite preview"
+    "start": "vite build src && mv src/dist . && vite preview",
+    "lint": "prettier --check .",
+    "format": "prettier --write ."
   },
   "keywords": [],
   "author": "",
@@ -21,7 +23,11 @@
     "gulp-postcss": "^10.0.0",
     "gulp-sass": "^5.1.0",
     "gulp-terser": "^2.1.0",
+    "husky": "^9.1.6",
     "sass": "^1.79.1",
     "vite": "^5.4.7"
+  },
+  "devDependencies": {
+    "prettier": "^3.3.3"
   }
 }
