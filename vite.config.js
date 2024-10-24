@@ -8,20 +8,13 @@ export default defineConfig({
         // Configure global SASS settings if necessary
       }
     },
-    postcss: {
-      plugins: [
-        require('cssnano')({
-          preset: 'default',
-        }),
-      ],
-    },
   },
   build: {
     sourcemap: true,  // Enable sourcemaps for both JS and CSS
     rollupOptions: {
       input: {
         main: path.resolve(__dirname, 'index.html'),
-      }
+      },
     },
     minify: true,
     cssMinify: true

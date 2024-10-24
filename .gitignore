@@ -9,3 +9,4 @@ package-lock.json
 */*/__pycache__
 comments.db
 .env
+dist
