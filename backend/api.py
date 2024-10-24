@@ -19,7 +19,7 @@ from backend.downloads import download
 download()
 load_dotenv()
 
-SECRET_KEY = os.environ['SECRET_KEY']
+SECRET_KEY = os.environ["SECRET_KEY"]
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRES_MINUTES = 30
 
@@ -34,6 +34,7 @@ SessionLocal = sessionmaker(bind=engine, autocommit=False, autoflush=False)
 
 Base = declarative_base()
 
+
 # Database model
 class UserDB(Base):
     __tablename__ = "users"
@@ -45,16 +46,20 @@ class UserDB(Base):
     full_name = Column(String, nullable=True)
     disabled = Column(Boolean, default=False)
 
+
 # Create the database tables
 Base.metadata.create_all(bind=engine)
+
 
 # Pydantic models
 class Token(BaseModel):
     access_token: str
     token_type: str
 
+
 class TokenData(BaseModel):
     username: str or None = None
+
 
 class UserBase(BaseModel):
     username: str
@@ -62,22 +67,26 @@ class UserBase(BaseModel):
     full_name: str or None = None
     disabled: bool or None = None
 
+
 class UserCreate(UserBase):
     password: str
+
 
 class User(UserBase):
     class Config:
         orm_mode = True
 
+
 class Video(BaseModel):
     id: str
+
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 app = FastAPI()
 
-origins = ['http://localhost:5173', 'http://localhost:4173']  
+origins = ["http://localhost:5173", "http://localhost:4173"]
 
 app.add_middleware(
     CORSMiddleware,
@@ -87,11 +96,14 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 def verify_password(plain_password, hashed_password):
     return pwd_context.verify(plain_password, hashed_password)
 
+
 def get_password_hash(password):
     return pwd_context.hash(password)
+
 
 # Dependency to get DB session
 def get_db():
@@ -101,8 +113,10 @@ def get_db():
     finally:
         db.close()
 
+
 def get_user(db: Session, username: str):
     return db.query(UserDB).filter(UserDB.username == username).first()
+
 
 def authenticate_user(db: Session, username: str, password: str):
     user = get_user(db, username)
@@ -113,11 +127,13 @@ def authenticate_user(db: Session, username: str, password: str):
 
     return user
 
+
 def create_access_token(data: dict, expires_delta: timedelta or None = None):
     to_encode = data.copy()
     expire = datetime.utcnow() + (expires_delta or timedelta(minutes=15))
     to_encode.update({"exp": expire})
     return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+
 
 async def get_current_user(
     db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)
@@ -137,12 +153,13 @@ async def get_current_user(
         token_data = TokenData(username=username)
     except JWTError:
         raise credentials_exception
-    
+
     user = get_user(db, username=token_data.username)
     if user is None:
         raise credentials_exception
 
     return user
+
 
 async def get_current_active_user(current_user: UserDB = Depends(get_current_user)):
     if current_user.disabled:
@@ -150,6 +167,7 @@ async def get_current_active_user(current_user: UserDB = Depends(get_current_use
             status_code=status.HTTP_400_BAD_REQUEST, detail="Inactive user"
         )
     return current_user
+
 
 @app.post("/users/", response_model=User)
 def create_user(user: UserCreate, db: Session = Depends(get_db)):
@@ -168,6 +186,7 @@ def create_user(user: UserCreate, db: Session = Depends(get_db)):
     db.refresh(db_user)
     return db_user
 
+
 @app.post("/token", response_model=Token)
 async def login_for_access_token(
     db: Session = Depends(get_db), form_data: OAuth2PasswordRequestForm = Depends()
@@ -179,18 +198,19 @@ async def login_for_access_token(
             detail="Incorrect username or password",
             headers={"WWW-Authenticate": "Bearer"},
         )
-    
+
     access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRES_MINUTES)
     access_token = create_access_token(
         data={"sub": user.username}, expires_delta=access_token_expires
     )
     return {"access_token": access_token, "token_type": "bearer"}
 
+
 @app.post("/")
-async def root(video: Video):    
+async def root(video: Video):
     sentiment = get_sentiment(video.id)
     if sentiment:
-        score = round((((sentiment[0]--1) * (10 - 1)) / (1--1)) + 1)
+        score = round((((sentiment[0] - -1) * (10 - 1)) / (1 - -1)) + 1)
         return {
             "score": score,
             "comments": sentiment[1],
@@ -201,6 +221,7 @@ async def root(video: Video):
             status_code=status.HTTP_206_PARTIAL_CONTENT,
             detail="The video's comments are disabled or invalid video ID",
         )
+
 
 @app.post("/signup")
 def signup(user: UserCreate, db: Session = Depends(get_db)):

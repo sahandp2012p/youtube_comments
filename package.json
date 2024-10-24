@@ -10,7 +10,7 @@
     "preview": "vite preview",
     "start": "vite build src && mv src/dist . && vite preview",
     "lint": "prettier --check .",
-    "format": "prettier --write . & & black ."
+    "format": "prettier --write . && black ."
   },
   "keywords": [],
   "author": "",
