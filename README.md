@@ -43,8 +43,7 @@ $ uvicorn api:app
 
 Then run these commands to buld the code and open the server that uses minified code
 ```bash
-$ bun run build
-$ bun run preview
+$ bun preview
 ```
 ## FAQ
 
