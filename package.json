@@ -4,13 +4,13 @@
   "description": "This app gives the sentiment of your comments from a scale -1 to 1. -1 being very bad 1 being very good.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "vite --host",
-    "build": "vite build",
-    "preview": "vite preview",
-    "start": "vite build src && mv src/dist . && vite preview",
-    "lint": "prettier --check .",
-    "format": "prettier --write . && black ."
+    "test": "just test",
+    "dev": "just dev",
+    "build": "just build",
+    "preview": "just preview",
+    "start": "just",
+    "lint": "just lint",
+    "format": "just format"
   },
   "keywords": [],
   "author": "",
