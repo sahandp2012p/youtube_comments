@@ -6,3 +6,4 @@ python_env
 bun.lockb
 comments.db
 dist
+.vscode
