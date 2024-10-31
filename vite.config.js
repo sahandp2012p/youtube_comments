@@ -1,6 +1,6 @@
 import { defineConfig } from "vite";
 import path from "path";
-import tailwindcss from 'tailwindcss';
+import tailwindcss from "tailwindcss";
 import autoprefixer from "autoprefixer";
 
 export default defineConfig({
@@ -9,11 +9,9 @@ export default defineConfig({
     {
       ...tailwindcss,
       postcss: {
-        plugins: [
-          autoprefixer
-        ]
-      }
-    }
+        plugins: [autoprefixer],
+      },
+    },
   ],
   css: {
     preprocessorOptions: {
