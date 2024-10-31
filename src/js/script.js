@@ -1,4 +1,4 @@
-import "../sass/style.sass";
+import "../css/index.css";
 import axios from "axios";
 
 const form = document.getElementById("score");
