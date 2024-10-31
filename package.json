@@ -8,7 +8,7 @@
     "dev": "vite --host",
     "build": "vite build",
     "preview": "vite preview",
-    "start": "vite build src && mv src/dist . && vite preview",
+    "start": "rm -rf dist && vite build && vite preview",
     "lint": "prettier --check .",
     "format": "prettier --write . && black ."
   },

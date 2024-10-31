@@ -2,6 +2,7 @@ import { defineConfig } from "vite";
 import path from "path";
 
 export default defineConfig({
+  root: "src",
   css: {
     preprocessorOptions: {
       sass: {
@@ -14,9 +15,10 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: path.resolve("src", "index.html"),
-      },
-      // output
+      }
     },
+    outDir: '../dist',
+    emptyOutDir: true,
     minify: true,
     cssMinify: true,
   },
