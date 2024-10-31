@@ -15,9 +15,9 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: path.resolve("src", "index.html"),
-      }
+      },
     },
-    outDir: '../dist',
+    outDir: "../dist",
     emptyOutDir: true,
     minify: true,
     cssMinify: true,
