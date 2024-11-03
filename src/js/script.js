@@ -13,12 +13,12 @@ const formSubmit = (event) => {
     .then((response) => {
       if (response.status == 200) {
         let data = response.data;
-        document.querySelector("p").innerText =
+        document.getElementById("result").innerText =
           `${data.score}/10 ${data.emoji} Out of ${data.comments} comments`;
       } else if (response.status == 206) {
-        document.querySelector("p").innerText = response.data.detail;
+        document.getElementById("result").innerText = response.data.detail;
       } else {
-        document.querySelector("p").innerText = "Unauthorized";
+        document.getElementById("result").innerText = "Unauthorized";
       }
     });
 };
