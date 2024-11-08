@@ -7,11 +7,18 @@ from backend.preprocess import pipeline
 def get_sentiment(id):
     sentiment_object = SentimentIntensityAnalyzer()
     try:
-        comments = get_comments(id)
+        video_comments = get_comments(id)
     except:
         return False
+
     polarity = []
-    for comment in comments:
+    comments = []
+    for comment in video_comments:
         sentiment_dict = sentiment_object.polarity_scores(pipeline(comment))
         polarity.append(sentiment_dict["compound"])
-    return sum(polarity) / len(polarity), len(polarity)
+        comments.append(comment)
+    score_index_pairs = [(score, i) for i, score in enumerate(polarity)]
+    sorted_pairs = sorted(score_index_pairs, key=lambda x: x[0], reverse=True)
+    scores, sorted_indices = zip(*sorted_pairs)
+    comments = [comments[i] for i in sorted_indices]
+    return sum(polarity) / len(polarity), len(polarity), comments[:11], scores[:11]

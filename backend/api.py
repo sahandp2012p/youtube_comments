@@ -86,7 +86,7 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 app = FastAPI()
 
-origins = ["http://localhost:5173", "http://localhost:4173"]
+origins = ["*"]
 
 app.add_middleware(
     CORSMiddleware,
@@ -214,6 +214,7 @@ async def root(video: Video):
         return {
             "score": score,
             "comments": sentiment[1],
+            "top_comments": {"comments": sentiment[2], "scores": sentiment[3]},
             "emoji": get_emojis(score),
         }
     else:
