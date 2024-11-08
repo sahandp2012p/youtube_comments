@@ -43,7 +43,7 @@ And then you will have to run the python server using this command:
 $ uvicorn backend.api:app
 ```
 
-Then run the below command to buld the code and open the server that uses minified code
+Then run the below command to build the code and open the server that uses minified code
 
 ```bash
 $ bun start
