@@ -22,7 +22,7 @@ const formSubmit = (event) => {
       }
     });
 
-    // TODO: Add top comments
+  // TODO: Add top comments
 };
 
 form.addEventListener("submit", formSubmit, false);
