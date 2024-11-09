@@ -11,41 +11,84 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
       body {
         font-family: "Poppins", sans-serif;
+        background: linear-gradient(
+          135deg,
+          rgba(255, 99, 71, 0.8),
+          rgba(0, 255, 255, 0.8)
+        );
       }
     </style>
   </head>
-  <body class="flex items-center justify-center min-h-screen bg-gray-100">
-    <div class="w-full max-w-md p-6 bg-white rounded-[2rem] shadow-xl">
-      <h1 class="text-2xl font-semibold text-center text-gray-800 mb-6">
+  <body
+    class="flex items-center justify-center min-h-screen relative overflow-hidden"
+  >
+    <!-- Main card with glassmorphism effect and colorful styling -->
+    <div
+      class="w-full max-w-md p-6 bg-white bg-opacity-20 backdrop-blur-lg rounded-2xl shadow-lg border border-white/30 relative overflow-hidden"
+    >
+      <!-- Colorful Glassy "balls" at the edge of the form -->
+      <div
+        class="absolute -top-8 -right-8 w-32 h-32 rounded-full backdrop-blur-md shadow-lg"
+        style="
+          background: linear-gradient(
+            135deg,
+            rgba(255, 99, 71, 0.5),
+            rgba(255, 99, 71, 0.2),
+            rgba(255, 255, 0, 0.5)
+          );
+        "
+      ></div>
+
+      <div
+        class="absolute -bottom-8 -left-8 w-48 h-48 rounded-full backdrop-blur-md shadow-lg"
+        style="
+          background: linear-gradient(
+            135deg,
+            rgba(0, 255, 255, 0.5),
+            rgba(173, 216, 230, 0.3),
+            rgba(255, 105, 180, 0.5)
+          );
+        "
+      ></div>
+
+      <!-- Card content -->
+      <h1
+        class="text-2xl font-semibold text-center mb-6 relative z-10 text-gradient bg-clip-text bg-gradient-to-r from-pink-500 to-blue-500"
+      >
         YouTube Comments Sentiment Analysis
       </h1>
 
-      <form id="score" class="space-y-4">
-        <label for="id" class="block text-sm font-medium text-gray-700"
+      <form id="score" class="space-y-4 relative z-10">
+        <label
+          for="id"
+          class="block text-sm font-medium text-gray-700 text-gradient bg-clip-text bg-gradient-to-r from-purple-500 to-indigo-500"
           >Enter Video ID:</label
         >
         <input
           type="text"
           name="id"
           id="id"
-          class="w-full px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring focus:ring-blue-200 shadow-inner"
+          class="w-full px-3 py-2 bg-white bg-opacity-30 border border-gray-300 rounded-xl shadow-inner focus:outline-none focus:ring-2 focus:ring-blue-200 backdrop-blur-sm"
+          placeholder="e.g., dQw4w9WgXcQ"
         />
 
         <button
           id="submit"
-          class="w-full px-4 py-2 text-white bg-blue-600 rounded-xl hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 shadow-md"
+          class="w-full px-4 py-2 text-white bg-gradient-to-r from-purple-500 to-blue-600 rounded-xl hover:bg-gradient-to-r hover:from-purple-600 hover:to-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 shadow-md"
         >
           Get Score
         </button>
       </form>
 
-      <p id="result" class="mt-4 text-center text-gray-700"></p>
+      <p
+        id="result"
+        class="mt-4 text-center text-gray-700 relative z-10 text-gradient bg-clip-text bg-gradient-to-r from-yellow-500 to-red-500"
+      ></p>
     </div>
-
-    <!--TODO: Add top comments-->
 
     <script src="js/script.js" type="module"></script>
   </body>
