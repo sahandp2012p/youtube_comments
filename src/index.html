@@ -15,24 +15,19 @@
     <style>
       body {
         font-family: "Poppins", sans-serif;
-        background: linear-gradient(
-          135deg,
-          rgba(255, 99, 71, 0.8),
-          rgba(0, 255, 255, 0.8)
-        );
-      }
+        }
     </style>
   </head>
   <body
-    class="flex items-center justify-center min-h-screen relative overflow-hidden"
+    class="flex items-center justify-center min-h-screen relative overflow-hidden bg-slate-800"
   >
     <!-- Main card with glassmorphism effect and colorful styling -->
     <div
-      class="w-full max-w-md p-6 bg-white bg-opacity-20 backdrop-blur-lg rounded-2xl shadow-lg border border-white/30 relative overflow-hidden"
+      class="w-full max-w-md p-6 bg-slate-600 bg-opacity-50 backdrop-blur-3xl rounded-2xl shadow-lg border border-white/30 relative overflow-visible"
     >
       <!-- Colorful Glassy "balls" at the edge of the form -->
       <div
-        class="absolute -top-8 -right-8 w-32 h-32 rounded-full backdrop-blur-md shadow-lg"
+        class="absolute -top-16 -right-16 w-32 h-32 rounded-full backdrop-blur-3xl shadow-lg opacity-75"
         style="
           background: linear-gradient(
             135deg,
@@ -44,7 +39,7 @@
       ></div>
 
       <div
-        class="absolute -bottom-8 -left-8 w-48 h-48 rounded-full backdrop-blur-md shadow-lg"
+        class="absolute -bottom-24 -left-24 w-48 h-48 rounded-full backdrop-blur-md shadow-lg opacity-75"
         style="
           background: linear-gradient(
             135deg,
@@ -57,7 +52,7 @@
 
       <!-- Card content -->
       <h1
-        class="text-2xl font-semibold text-center mb-6 relative z-10 text-gradient bg-clip-text bg-gradient-to-r from-pink-500 to-blue-500"
+        class="text-2xl font-semibold text-center mb-6 relative z-10 text-gradient bg-clip-text bg-gradient-to-r text-white"
       >
         YouTube Comments Sentiment Analysis
       </h1>
@@ -65,7 +60,7 @@
       <form id="score" class="space-y-4 relative z-10">
         <label
           for="id"
-          class="block text-sm font-medium text-gray-700 text-gradient bg-clip-text bg-gradient-to-r from-purple-500 to-indigo-500"
+          class="block text-sm font-medium text-white text-gradient bg-clip-text bg-gradient-to-r from-purple-500 to-indigo-500"
           >Enter Video ID:</label
         >
         <input
