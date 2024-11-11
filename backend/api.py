@@ -167,6 +167,7 @@ async def get_current_active_user(current_user: UserDB = Depends(get_current_use
         )
     return current_user
 
+
 @app.post("/users/", response_model=User)
 def create_user(user: UserCreate, db: Session = Depends(get_db)):
     db_user = get_user(db, username=user.username)
