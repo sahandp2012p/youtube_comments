@@ -175,6 +175,7 @@ async def startup_event():
     background_tasks.add_task(download)
     await background_tasks()
 
+
 @app.post("/users/", response_model=User)
 def create_user(user: UserCreate, db: Session = Depends(get_db)):
     db_user = get_user(db, username=user.username)
