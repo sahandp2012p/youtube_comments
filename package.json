@@ -9,8 +9,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "start": "rm -rf dist && vite build && vite preview",
-    "lint": "prettier --check .",
-    "format": "prettier --write . && black ."
+    "lint": "prettier --check ./src",
+    "format": "prettier --write ./src && black ."
   },
   "keywords": [],
   "author": "",
