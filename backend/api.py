@@ -1,6 +1,7 @@
 from fastapi import FastAPI, HTTPException, Depends, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from fastapi.middleware.cors import CORSMiddleware
+from starlette.background import BackgroundTasks
 from pydantic import BaseModel
 from datetime import datetime, timedelta
 from jose import JWTError, jwt
@@ -16,7 +17,6 @@ from backend.get_sentiments import get_sentiment
 from backend.get_emojis import get_emojis
 from backend.downloads import download
 
-download()
 load_dotenv()
 
 SECRET_KEY = os.environ["SECRET_KEY"]
@@ -168,6 +168,12 @@ async def get_current_active_user(current_user: UserDB = Depends(get_current_use
         )
     return current_user
 
+
+@app.on_event("startup")
+async def startup_event():
+    background_tasks = BackgroundTasks()
+    background_tasks.add_task(download)
+    await background_tasks()
 
 @app.post("/users/", response_model=User)
 def create_user(user: UserCreate, db: Session = Depends(get_db)):

@@ -40,6 +40,7 @@ $ pip install -r requirements.txt
 And then you will have to run the python server using this command:
 
 ```bash
+$ python backend/downloads.py
 $ uvicorn backend.api:app
 ```
 
