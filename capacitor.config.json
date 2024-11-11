@@ -1,0 +1,6 @@
+{
+  "appId": "com.comments.app",
+  "appName": "Youtube Comments Sentiment Analysis",
+  "webDir": "dist",
+  "bundledWebRuntime": false
+}
