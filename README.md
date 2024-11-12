@@ -14,7 +14,7 @@ To create run:
 $ openssl rand -hex 32
 ```
 
-`DEVELOPER_KEY`: Which is the api key for YouTube api v3: [Get from this link](https://developers.google.com/youtube/v3)
+`DEVELOPER_KEY`: Which is the api key for YouTube api v3: [Get from this link](https://developers.google.com/youtube/v3/getting-started)
 
 ## Run Locally
 
