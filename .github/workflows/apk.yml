@@ -14,11 +14,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Set up latest JDK
+      - name: Set up JDK 17 (latest LTS)
         uses: actions/setup-java@v2
         with:
           distribution: 'temurin'
-          java-version: 'latest'
+          java-version: '17'
 
       - name: Install Android SDK
         uses: android-actions/setup-android@v2
