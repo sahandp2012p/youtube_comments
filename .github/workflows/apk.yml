@@ -35,15 +35,16 @@ jobs:
             ${{ runner.os }}-gradle-
 
       - name: Make gradlew executable
-        run: chmod +x ./gradlew
+        run: chmod +x ./android/gradlew
 
       - name: Build APK
-        run: ./gradlew assembleRelease
+        run: ./android/gradlew assembleRelease
+        working-directory: android
 
       - name: Upload APK to release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "app/build/outputs/apk/release/app-release.apk"
+          artifacts: "android/app/build/outputs/apk/release/app-release.apk"
           token: ${{ secrets.GITHUB_TOKEN }}
           tag: "v${{ github.run_number }}"
           name: "Release v${{ github.run_number }}"
