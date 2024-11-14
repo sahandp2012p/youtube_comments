@@ -14,6 +14,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: List directory contents for debugging
+        run: |
+          echo "Root directory:"
+          ls -la
+          echo "Android directory:"
+          ls -la android/
+
       - name: Set up JDK 17 (latest LTS)
         uses: actions/setup-java@v2
         with:
@@ -35,10 +42,11 @@ jobs:
             ${{ runner.os }}-gradle-
 
       - name: Make gradlew executable
-        run: chmod +x ./android/gradlew
+        run: chmod +x gradlew
+        working-directory: android
 
       - name: Build APK
-        run: ./android/gradlew assembleRelease
+        run: ./gradlew assembleRelease
         working-directory: android
 
       - name: Upload APK to release
