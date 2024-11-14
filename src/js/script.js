@@ -2,9 +2,12 @@ import "../css/index.css";
 import axios from "axios";
 
 const form = document.getElementById("score");
+const spinner = document.getElementById('spinner')
 
 const formSubmit = (event) => {
   event.preventDefault();
+  document.getElementById('result').innerText = ''
+  spinner.style.display = 'flex'
   const formData = new FormData(event.target);
   axios
     .post("https://youtube-comments-backend-kv2i.onrender.com", {
@@ -20,6 +23,8 @@ const formSubmit = (event) => {
       } else {
         document.getElementById("result").innerText = "Unauthorized";
       }
+
+      spinner.style.display='none'
     });
 
   // TODO: Add top comments
