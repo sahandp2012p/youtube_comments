@@ -37,13 +37,6 @@ $ source ./python_env/bin/activate
 $ pip install -r requirements.txt
 ```
 
-And then you will have to run the python server using this command:
-
-```bash
-$ python backend/downloads.py
-$ uvicorn backend.api:app
-```
-
 Then run the below command to build the code and open the server that uses minified code
 
 ```bash
