@@ -1,6 +1,6 @@
 {
   "name": "youtube_comments",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "This app gives the sentiment of your comments from a scale 1 to 10",
   "main": "index.js",
   "scripts": {
