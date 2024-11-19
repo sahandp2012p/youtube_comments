@@ -2,20 +2,6 @@
 
 An application for YouTubers to analyze their comments given a score from 1 to 10.
 
-## Environment Variables
-
-To run this project, you will need to add the following environment variables to your .env file
-
-`SECRET_KEY`: Which is the key for creating passwords in the api.
-
-To create run:
-
-```bash
-$ openssl rand -hex 32
-```
-
-`DEVELOPER_KEY`: Which is the api key for YouTube api v3: [Get from this link](https://developers.google.com/youtube/v3/getting-started)
-
 ## Run Locally
 
 First you will have to clone this repo:
@@ -26,15 +12,10 @@ $ git clone https://github.com/sahandp2012p/youtube_comments.git
 
 Then, You will first have to [install bun](https://bun.sh/).
 
-And then [install the latest python version](https://www.python.org/).
-
-Then you will have to run these commands to install the dependencies:
+Later, you will have to run the following command to install the dependencies:
 
 ```bash
 $ bun install
-$ python -m venv python_env
-$ source ./python_env/bin/activate
-$ pip install -r requirements.txt
 ```
 
 Then run the below command to build the code and open the server that uses minified code
