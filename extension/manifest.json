@@ -1,0 +1,17 @@
+{
+    "manifest_version": 3,
+    "name": "YouTube Comment Sentiment Analysis",
+    "version": "1.0",
+    "description": "Displays the sentiment score of YouTube comments.",
+    "permissions": [
+      "storage",
+      "activeTab",
+      "scripting"
+    ],
+    "action": {
+      "default_popup": "popup.html"
+    },
+    "host_permissions": [
+      "https://www.youtube.com/*"
+    ]
+  }
