@@ -7,3 +7,5 @@ bun.lockb
 comments.db
 dist
 .vscode
+extension.pem
+extension.crx
