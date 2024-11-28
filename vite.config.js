@@ -2,10 +2,12 @@ import { defineConfig } from "vite";
 import path from "path";
 import tailwindcss from "tailwindcss";
 import autoprefixer from "autoprefixer";
+import vue from "@vitejs/plugin-vue";
 
 export default defineConfig({
   root: "src",
   plugins: [
+    vue(),
     {
       ...tailwindcss,
       postcss: {
