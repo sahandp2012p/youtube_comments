@@ -113,11 +113,10 @@ export default {
         if (response.status === 200) {
           const { score, emoji, comments } = response.data;
           this.result = `${score}/10 ${emoji} Out of ${comments} comments`;
-        } else if (response.status === 206) {
-          this.result = response.data.detail;
         } else {
-          this.result = "Unauthorized";
+          this.result = response.data.detail;
         }
+
       } catch (error) {
         this.result = "An error occurred while fetching data.";
       } finally {
