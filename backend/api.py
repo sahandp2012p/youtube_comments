@@ -4,6 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from backend.get_sentiments import get_sentiment
 from backend.get_emojis import get_emojis
 
+
 class Video(BaseModel):
     id: str
 
