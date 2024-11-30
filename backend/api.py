@@ -1,5 +1,6 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
 
 from backend.get_sentiments import get_sentiment
 from backend.get_emojis import get_emojis
