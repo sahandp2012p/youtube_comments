@@ -9,6 +9,7 @@ from backend.downloads import download
 class Video(BaseModel):
     id: str
 
+
 app = FastAPI()
 
 origins = ["*"]
@@ -20,6 +21,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 @app.post("/")
 async def root(video: Video):

@@ -116,7 +116,6 @@ export default {
         } else {
           this.result = response.data.detail;
         }
-
       } catch (error) {
         this.result = "An error occurred while fetching data.";
       } finally {
