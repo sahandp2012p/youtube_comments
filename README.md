@@ -1,4 +1,4 @@
-# Youtube Comments
+# YouMent
 
 An application for YouTubers to analyze their comments given a score from 1 to 10.
 
