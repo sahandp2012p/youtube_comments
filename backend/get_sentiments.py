@@ -21,4 +21,4 @@ def get_sentiment(id):
     sorted_pairs = sorted(score_index_pairs, key=lambda x: x[0], reverse=True)
     scores, sorted_indices = zip(*sorted_pairs)
     comments = [comments[i] for i in sorted_indices]
-    return sum(polarity) / len(polarity), len(polarity), comments[:11], scores[:11]
+    return sum(polarity) / len(polarity), len(polarity), comments[0], scores[0]
