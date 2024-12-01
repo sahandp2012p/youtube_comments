@@ -11,7 +11,8 @@
     "start": "rm -rf dist && vite build && vite preview",
     "lint": "prettier --check ./src",
     "format": "prettier --write ./src && black .",
-    "resources": "capacitor-resources -p android"
+    "resources": "capacitor-resources -p android",
+    "prepare": "husky"
   },
   "keywords": [],
   "author": "",
