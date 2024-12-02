@@ -7,7 +7,9 @@
       </h1>
 
       <form @submit.prevent="formSubmit" class="space-y-4">
-        <label for="id" class="block text-sm font-medium text-gray-600">Enter Video ID:</label>
+        <label for="id" class="block text-sm font-medium text-gray-600"
+          >Enter Video ID:</label
+        >
         <input
           type="text"
           v-model="videoId"
@@ -63,7 +65,7 @@ export default {
       try {
         const response = await axios.post(
           "https://youtube-comments-backend-kv2i.onrender.com",
-          { id: this.videoId }
+          { id: this.videoId },
         );
 
         if (response.status === 200) {
@@ -95,16 +97,18 @@ export default {
 <style scoped>
 /* Styling for general layout */
 body {
-  font-family: 'Arial', sans-serif;
+  font-family: "Arial", sans-serif;
   margin: 0;
   padding: 0;
 }
 
-input, button {
+input,
+button {
   transition: all 0.3s ease-in-out;
 }
 
-input:focus, button:focus {
+input:focus,
+button:focus {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
 </style>
