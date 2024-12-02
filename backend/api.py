@@ -31,7 +31,7 @@ async def root(video: Video):
         return {
             "score": score,
             "comments": sentiment[1],
-            "top_comment": {"comment": sentiment[2], "score": sentiment[3]},
+            "top_comment": {"comment": sentiment[2], "rating": sentiment[3]},
             "emoji": get_emojis(score),
         }
     else:
