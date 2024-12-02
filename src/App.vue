@@ -64,7 +64,9 @@
     >
       {{ result }}
     </p>
-    <p class="text-center text-white" v-if="comment">Best comment: {{ comment }} Score: {{ rating*10 }}/10</p>
+    <p class="text-center text-white" v-if="comment">
+      Best comment: {{ comment }} Score: {{ rating * 10 }}/10
+    </p>
   </div>
 </template>
 
