@@ -1,72 +1,41 @@
 <template>
-  <div
-    class="w-full max-w-md p-6 bg-slate-600 bg-opacity-50 backdrop-blur-3xl rounded-2xl shadow-lg border border-white/30 relative overflow-visible"
-  >
-    <!-- Colorful Glassy "balls" at the edge of the form -->
-    <div
-      class="absolute -top-16 -right-16 w-32 h-32 rounded-full backdrop-blur-3xl shadow-lg opacity-75 hidden md:block"
-      style="
-        background: linear-gradient(
-          135deg,
-          rgba(255, 99, 71, 0.5),
-          rgba(255, 99, 71, 0.2),
-          rgba(255, 255, 0, 0.5)
-        );
-      "
-    ></div>
+  <div class="flex items-center justify-center min-h-screen bg-gray-50">
+    <div class="w-full max-w-md p-8 bg-white rounded-lg shadow-lg">
+      <!-- Card content -->
+      <h1 class="text-3xl font-semibold text-center mb-6 text-gray-800">
+        YouMent
+      </h1>
 
-    <div
-      class="absolute -bottom-24 -left-24 w-48 h-48 rounded-full backdrop-blur-md shadow-lg opacity-75 hidden md:block"
-      style="
-        background: linear-gradient(
-          135deg,
-          rgba(0, 255, 255, 0.5),
-          rgba(173, 216, 230, 0.3),
-          rgba(255, 105, 180, 0.5)
-        );
-      "
-    ></div>
+      <form @submit.prevent="formSubmit" class="space-y-4">
+        <label for="id" class="block text-sm font-medium text-gray-600">Enter Video ID:</label>
+        <input
+          type="text"
+          v-model="videoId"
+          class="w-full px-4 py-3 bg-gray-100 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          placeholder="e.g., dQw4w9WgXcQ"
+          required
+        />
 
-    <!-- Card content -->
-    <h1
-      class="text-2xl font-semibold text-center mb-6 relative z-10 text-gradient bg-clip-text bg-gradient-to-r text-white"
-    >
-      YouTube Comments Sentiment Analysis
-    </h1>
+        <button
+          type="submit"
+          class="w-full px-4 py-3 text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        >
+          Get Score
+        </button>
+      </form>
 
-    <form @submit.prevent="formSubmit" class="space-y-4 relative z-10">
-      <label
-        for="id"
-        class="block text-sm font-medium text-white text-gradient bg-clip-text bg-gradient-to-r from-purple-500 to-indigo-500"
-        >Enter Video ID:</label
-      >
-      <input
-        type="text"
-        v-model="videoId"
-        class="w-full px-3 py-2 bg-white bg-opacity-30 border border-gray-300 rounded-xl shadow-inner focus:outline-none focus:ring-2 focus:ring-blue-200 backdrop-blur-sm"
-        placeholder="e.g., dQw4w9WgXcQ"
-        required
-      />
+      <Spinner v-if="loading" />
 
-      <button
-        type="submit"
-        class="w-full px-4 py-2 text-white bg-gradient-to-r from-purple-500 to-blue-600 rounded-xl hover:bg-gradient-to-r hover:from-purple-600 hover:to-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 shadow-md"
-      >
-        Get Score
-      </button>
-    </form>
+      <!-- Display the result only if it's available -->
+      <p v-if="result" class="mt-4 text-center text-gray-700">
+        {{ result }}
+      </p>
 
-    <Spinner v-if="loading" />
-
-    <p
-      v-if="result"
-      class="mt-4 text-center text-white relative z-10 text-gradient bg-clip-text bg-gradient-to-r from-yellow-500 to-red-500"
-    >
-      {{ result }}
-    </p>
-    <p class="text-center text-white" v-if="comment">
-      Best comment: {{ comment }} Score: {{ rating * 10 }}/10
-    </p>
+      <!-- Display the best comment only if it's available -->
+      <p v-if="comment" class="text-center text-gray-700">
+        Best comment: {{ comment }} Score: {{ rating * 10 }}/10
+      </p>
+    </div>
   </div>
 </template>
 
@@ -86,13 +55,15 @@ export default {
   },
   methods: {
     async formSubmit() {
-      this.loading = true;
+      // Clear previous results when submitting a new video ID
       this.result = "";
+      this.comment = "";
+      this.loading = true;
 
       try {
         const response = await axios.post(
           "https://youtube-comments-backend-kv2i.onrender.com",
-          { id: this.videoId },
+          { id: this.videoId }
         );
 
         if (response.status === 200) {
@@ -120,3 +91,20 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+/* Styling for general layout */
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+input, button {
+  transition: all 0.3s ease-in-out;
+}
+
+input:focus, button:focus {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+</style>
