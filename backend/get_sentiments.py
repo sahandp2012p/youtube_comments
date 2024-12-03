@@ -1,5 +1,5 @@
 from nltk.sentiment import SentimentIntensityAnalyzer
-import nltk
+
 from backend.get_comments import get_comments
 from backend.preprocess import pipeline
 
@@ -22,3 +22,9 @@ def get_sentiment(id):
     scores, sorted_indices = zip(*sorted_pairs)
     comments = [comments[i] for i in sorted_indices]
     return sum(polarity) / len(polarity), len(polarity), comments[0], scores[0]
+
+
+def comment_score(comment):
+    sentiment_object = SentimentIntensityAnalyzer()
+    sentiment_dict = sentiment_object.polarity_scores(pipeline(comment))
+    return sentiment_dict["compound"]

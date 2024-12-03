@@ -2,12 +2,16 @@ from fastapi import FastAPI, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
-from backend.get_sentiments import get_sentiment
+from backend.get_sentiments import get_sentiment, comment_score
 from backend.get_emojis import get_emojis
 
 
 class Video(BaseModel):
     id: str
+
+
+class Comment(BaseModel):
+    text: str
 
 
 app = FastAPI()
@@ -39,3 +43,8 @@ async def root(video: Video):
             status_code=status.HTTP_206_PARTIAL_CONTENT,
             detail="The video's comments are disabled or invalid video ID",
         )
+
+
+@app.post("/getcomment")
+async def get_comment(comment: Comment):
+    return round((((comment_score(comment.text) - -1) * (10 - 1)) / (1 - -1)) + 1)
