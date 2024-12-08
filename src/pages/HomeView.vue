@@ -5,7 +5,7 @@
       <h1 class="text-3xl font-semibold text-center mb-6 text-gray-800">
         YouMent
       </h1>
-      
+
       <form @submit.prevent="formSubmit" class="space-y-4">
         <label for="id" class="block text-sm font-medium text-gray-600"
           >Enter Video ID:</label
@@ -88,7 +88,7 @@ export default {
       } finally {
         this.loading = false;
       }
-    }
+    },
   },
   components: {
     Spinner,
