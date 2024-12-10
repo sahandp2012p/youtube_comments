@@ -44,7 +44,6 @@
 <script>
 import axios from "axios";
 import Spinner from "../components/Spinner.vue";
-import { RouterLink } from "vue-router";
 
 export default {
   name: "HomeView",
@@ -91,7 +90,7 @@ export default {
     },
   },
   components: {
-    Spinner,
+    Spinner
   },
 };
 </script>
