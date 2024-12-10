@@ -7,9 +7,9 @@
       </h1>
 
       <form @submit.prevent="formSubmit" class="space-y-4">
-        <label for="id" class="block text-sm font-medium text-gray-600"
-          >Enter Video ID:</label
-        >
+        <label for="id" class="block text-sm font-medium text-gray-600">
+          Enter Video ID:
+        </label>
         <input
           type="text"
           v-model="videoId"
@@ -41,57 +41,48 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref } from "vue";
 import axios from "axios";
 import Spinner from "../components/Spinner.vue";
 
-export default {
-  name: "HomeView",
-  data() {
-    return {
-      videoId: "", // Bound to the input
-      loading: false, // Controls spinner visibility
-      result: "", // Display result
-      comment: "", // Text for top comment
-      rating: 0,
-    };
-  },
-  methods: {
-    async formSubmit() {
-      // Clear previous results when submitting a new video ID
-      this.result = "";
-      this.comment = "";
-      this.loading = true;
+const videoId = ref(""); // Bound to the input
+const loading = ref(false); // Controls spinner visibility
+const result = ref(""); // Display result
+const comment = ref(""); // Text for top comment
+const rating = ref(0);
 
-      try {
-        const response = await axios.post(
-          "https://youtube-comments-backend-kv2i.onrender.com",
-          { id: this.videoId },
-        );
+const formSubmit = async () => {
+  // Clear previous results when submitting a new video ID
+  result.value = "";
+  comment.value = "";
+  loading.value = true;
 
-        if (response.status === 200) {
-          const {
-            score,
-            emoji,
-            comments,
-            top_comment: { comment, rating },
-          } = response.data;
-          this.comment = comment;
-          this.rating = rating;
-          this.result = `${score}/10 ${emoji} Out of ${comments} comments`;
-        } else {
-          this.result = response.data.detail;
-        }
-      } catch (error) {
-        this.result = "An error occurred while fetching data.";
-      } finally {
-        this.loading = false;
-      }
-    },
-  },
-  components: {
-    Spinner
-  },
+  try {
+    const response = await axios.post(
+      "https://youtube-comments-backend-kv2i.onrender.com",
+      { id: videoId.value }
+    );
+
+    if (response.status === 200) {
+      const {
+        score,
+        emoji,
+        comments,
+        top_comment: { comment: topComment, rating: topRating },
+      } = response.data;
+
+      comment.value = topComment;
+      rating.value = topRating;
+      result.value = `${score}/10 ${emoji} Out of ${comments} comments`;
+    } else {
+      result.value = response.data.detail;
+    }
+  } catch (error) {
+    result.value = "An error occurred while fetching data.";
+  } finally {
+    loading.value = false;
+  }
 };
 </script>
 
