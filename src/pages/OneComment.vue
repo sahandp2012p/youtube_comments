@@ -58,7 +58,7 @@ const formSubmit = async () => {
 
     if (response.status === 200) {
       const score = response.data;
-      console.log(score)
+      console.log(score);
 
       result.value = `${score}/10`;
     } else {
