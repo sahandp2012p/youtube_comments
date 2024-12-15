@@ -7,9 +7,9 @@ const routes = [
   { path: "/", component: HomeView },
   { path: "/onecomment", component: OneComment },
   {
-    path: '/:pathMatch(.*)*',
-    redirect: '/' 
-  }
+    path: "/:pathMatch(.*)*",
+    redirect: "/",
+  },
 ];
 
 const router = createRouter({
@@ -17,6 +17,6 @@ const router = createRouter({
   routes,
 });
 
-router.replace({ path: '*', redirect: '/' })
+router.replace({ path: "*", redirect: "/" });
 
 export default router;
