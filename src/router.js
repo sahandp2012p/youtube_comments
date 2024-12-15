@@ -4,7 +4,7 @@ import HomeView from "./pages/HomeView.vue";
 import OneComment from "./pages/OneComment.vue";
 
 const routes = [
-  { path: "/", component: HomeView },
+  { path: "/*", component: HomeView },
   { path: "/onecomment", component: OneComment },
 ];
 
