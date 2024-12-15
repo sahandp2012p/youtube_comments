@@ -8,7 +8,7 @@
 
       <form @submit.prevent="formSubmit" class="space-y-4">
         <label for="id" class="block text-sm font-medium text-gray-600">
-          Enter Video ID:
+          Enter Comment Text:
         </label>
         <input
           type="text"
@@ -45,11 +45,7 @@ const loading = ref(false); // Controls spinner visibility
 const result = ref("");
 
 const formSubmit = async () => {
-  // Clear previous results when submitting a new video ID
-  result.value = "";
-  comment.value = "";
-  loading.value = true;
-
+  
   try {
     const response = await axios.post(
       "https://youtube-comments-backend-kv2i.onrender.com/getcomment",
