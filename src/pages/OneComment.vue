@@ -45,7 +45,10 @@ const loading = ref(false); // Controls spinner visibility
 const result = ref("");
 
 const formSubmit = async () => {
+  
   try {
+    result.value = "";
+    loading.value = true;
     const response = await axios.post(
       "https://youtube-comments-backend-kv2i.onrender.com/getcomment",
       { text: comment.value },
