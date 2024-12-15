@@ -45,7 +45,6 @@ const loading = ref(false); // Controls spinner visibility
 const result = ref("");
 
 const formSubmit = async () => {
-  
   try {
     result.value = "";
     loading.value = true;
