@@ -7,7 +7,13 @@
         <form @submit.prevent="formSubmit" class="space-y-4">
           <fieldset class="fieldset">
             <label class="label" for="videoId">Enter Video ID:</label>
-            <input type="text" id="videoId" v-model="videoId" class="input" placeholder="e.g., dQw4w9WgXcQ" />
+            <input
+              type="text"
+              id="videoId"
+              v-model="videoId"
+              class="input"
+              placeholder="e.g., dQw4w9WgXcQ"
+            />
           </fieldset>
 
           <button type="submit" class="btn btn-primary w-full">

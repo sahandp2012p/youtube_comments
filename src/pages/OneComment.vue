@@ -7,7 +7,12 @@
         <form @submit.prevent="formSubmit" class="space-y-4">
           <fieldset class="fieldset">
             <label class="label" for="commentInput">Enter Comment Text:</label>
-            <input id="comment Input" v-model="comment" class="input" placeholder="e.g., This is Great!" />
+            <input
+              id="comment Input"
+              v-model="comment"
+              class="input"
+              placeholder="e.g., This is Great!"
+            />
           </fieldset>
 
           <button type="submit" class="btn btn-primary w-full">
