@@ -1,10 +1,10 @@
 <template>
-  <nav class="navbar backdrop-blur">
-    <div class="navbar-start flex flex-grow items-center justify-between">
+  <nav class="navbar backdrop-blur-sm">
+    <div class="navbar-start flex grow items-center justify-between">
       <a href="/" class="btn btn-ghost text-xl font-bold">YouMent</a>
       <button
         id="menu-btn"
-        class="md:hidden focus:outline-none btn btn-neutral text-neutral-content w-20 h-20 relative flex items-center justify-center"
+        class="md:hidden focus:outline-hidden btn btn-neutral text-neutral-content w-20 h-20 relative flex items-center justify-center"
         @click="toggleMenu"
       >
         <div
@@ -15,7 +15,7 @@
     <ul
       ref="menu"
       id="menu"
-      class="menu menu-vertical bg-transparent fixed md:h-auto top-0 bottom-0 -left-32 md:static h-screen transition-all duration-150 ease-in-out opacity-0 md:opacity-100 md:menu-horizontal"
+      class="menu menu-vertical w-full bg-transparent fixed md:h-auto top-0 bottom-0 -left-32 md:static h-screen transition-all duration-150 ease-in-out opacity-0 md:opacity-100 md:menu-horizontal"
     >
       <li>
         <RouterLink to="/" class="text-base-content">Home</RouterLink>
