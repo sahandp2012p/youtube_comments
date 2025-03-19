@@ -5,18 +5,10 @@
         <h1 class="text-3xl font-semibold text-center mb-6">YouMent</h1>
 
         <form @submit.prevent="formSubmit" class="space-y-4">
-          <div class="form-control">
-            <label class="label">
-              <span class="label-text">Enter Video ID:</span>
-            </label>
-            <input
-              type="text"
-              v-model="videoId"
-              placeholder="e.g., dQw4w9WgXcQ"
-              class="input input-bordered"
-              required
-            />
-          </div>
+          <fieldset class="fieldset">
+            <label class="label" for="videoId">Enter Video ID:</label>
+            <input type="text" id="videoId" v-model="videoId" class="input" placeholder="e.g., dQw4w9WgXcQ" />
+          </fieldset>
 
           <button type="submit" class="btn btn-primary w-full">
             Get Score

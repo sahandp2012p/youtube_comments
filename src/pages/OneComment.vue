@@ -5,18 +5,10 @@
         <h1 class="text-3xl font-semibold text-center mb-6">YouMent</h1>
 
         <form @submit.prevent="formSubmit" class="space-y-4">
-          <div class="form-control">
-            <label class="label">
-              <span class="label-text">Enter Comment Text:</span>
-            </label>
-            <input
-              type="text"
-              v-model="comment"
-              class="input input-bordered"
-              placeholder="e.g., This is Great!"
-              required
-            />
-          </div>
+          <fieldset class="fieldset">
+            <label class="label" for="commentInput">Enter Comment Text:</label>
+            <input id="comment Input" v-model="comment" class="input" placeholder="e.g., This is Great!" />
+          </fieldset>
 
           <button type="submit" class="btn btn-primary w-full">
             Get Score
